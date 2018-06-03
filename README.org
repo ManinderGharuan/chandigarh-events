@@ -1,0 +1,11 @@
+* Event
+  - title
+  - description
+  - date
+  - time
+  - location
+  - type
+   - Software
+   - Hardware
+   - Sports
+   - Recreational
