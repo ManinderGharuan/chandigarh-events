@@ -3,13 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date().toISOString().substr(0, 10),
+    }
+  };
+
   render() {
     return (
       <div className="create-event">
+        <h1 className="event-head">Add Event</h1>
+
         <form className="event-form">
           <input type="text" className="event-input title" placeholder="Title" name="title" />
           <textarea className="event-input description" name="description" placeholder="description" />
-          <input type="datetime-local" className="event-input datetime" name="datetime" />
+          <input type="date" className="event-input date" name="date" min={this.state.date} />
+          <input type="time" className="event-input time" name="time" />
           <input type="text" className="event-input location" name="location" placeholder="Location" />
           <select className="event-input" >
             <option value="software">Software</option>
@@ -17,7 +27,7 @@ class Form extends React.Component {
             <option value="sports">Sports</option>
             <option value="recreational">Recreational</option>
           </select>
-          <input type="submit" value="Submit" />
+          <input className="submit-input" type="submit" value="Submit" />
         </form>
       </div>
     );
