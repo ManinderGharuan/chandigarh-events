@@ -56,7 +56,7 @@ body {
   display: none;
 }
 
-.date::-webkit-calendar-picker-selector .time::-webkit-inner-spin-button {
+.date::-webkit-calendar-picker-indicator {
   background: #073642;
 }
 
