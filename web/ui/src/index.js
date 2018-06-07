@@ -7,11 +7,10 @@ class Form extends React.Component {
     super(props);
     this.state = {
       title: "",
-      desc: "",
-      data: "",
-      time: "",
+      description: "",
+      datetime: "",
       location: "",
-      type: "",
+      type: "software"
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -19,12 +18,21 @@ class Form extends React.Component {
   }
 
   handleChange(event) {
-    target = event.target
+    const target = event.target
 
-    this.setState({target.name = target.value});
+    this.setState({ [target.name]: target.value });
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+
+    fetch("http://localhost:5000/event",  {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    });
   }
 
   render() {
@@ -33,12 +41,17 @@ class Form extends React.Component {
         <h1 className="event-head">Add Event</h1>
 
         <form className="event-form" onSubmit={this.handleSubmit}>
-          <input type="text" className="event-input title" placeholder="Title" name="title" onChange={this.onChange} />
-          <textarea className="event-input description" name="description" placeholder="description" onChange={this.onChange} />
-          <input type="date" className="event-input date" name="date" onChange={this.onChange} />
-          <input type="time" className="event-input time" name="time" onChange={this.onChange} />
-          <input type="text" className="event-input location" name="location" placeholder="Location" onChange={this.onChange} />
-          <select className="event-input" onChange={this.onChange} >
+          <input type="text" className="event-input title" placeholder="Title"
+            name="title" value={this.state.title} onChange={this.handleChange} />
+          <textarea className="event-input description" name="description"
+            placeholder="Description" value={this.state.description}
+            onChange={this.handleChange} />
+          <input type="datetime-local" className="event-input date" name="datetime"
+            value={this.state.datetime} onChange={this.handleChange} />
+          <input type="text" className="event-input location" name="location"
+            placeholder="Location" value={this.state.location} onChange={this.handleChange} />
+          <select className="event-input" name="type" value={this.state.type}
+            onChange={this.handleChange} >
             <option value="software">Software</option>
             <option value="hardware">Hardware</option>
             <option value="sports">Sports</option>
