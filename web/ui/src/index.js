@@ -3,6 +3,26 @@ import ReactDOM from 'react-dom';
 import DateTime from 'react-datetime';
 import './index.css';
 
+
+class NavigationMenu extends React.Component {
+  render() {
+    return (
+      <div className="navigation-bar">
+        <div className="wrapper">
+          <div className="brand">
+            <a href="./">
+              <h1>Chandigarh <span>Events</span></h1>
+            </a>
+          </div>
+
+          <div className="menu">
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
 class ShowEvent extends React.Component {
   constructor(props) {
     super(props);
@@ -128,9 +148,13 @@ class Form extends React.Component {
 class Event extends React.Component {
   render() {
     return (
-      <div className="container">
-        <ShowEvent />
-        <Form />
+      <div className="body-container">
+        <NavigationMenu />
+
+        <div className="container">
+          <ShowEvent />
+          <Form />
+        </div>
       </div>
     );
   }
