@@ -1,6 +1,60 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import DateTime from 'react-datetime';
 import './index.css';
+
+class ShowEvent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:5000/get_events", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    }).then(response => response.json())
+      .then(data => this.setState( {events: data} ))
+  }
+
+  render() {
+    const {events} = this.state;
+
+    return (
+      <div className="event-list-container">
+      {events.map(event =>
+        <div className="row">
+          <div className="row-item row-details">
+            <div className="row-inner-item show-title">
+              <span>{event.title}</span>
+            </div>
+
+            <div className="row-inner-item show-datetime">
+              <span>{event.date}, {event.time}</span>
+            </div>
+
+            <div className="row-inner-item show-location">
+              <span className="location-event">{event.location}</span>
+            </div>
+          </div>
+
+          <div className="row-item row-description">
+            <div className="row-inner-item row-description-head">
+              <span>Details</span>
+            </div>
+
+            <div className="row-inner-item show-description">
+              <span>{event.description}</span>
+            </div>
+          </div>
+        </div>
+      )}
+      </div>
+    );
+  }
+}
 
 class Form extends React.Component {
   constructor(props) {
@@ -18,9 +72,10 @@ class Form extends React.Component {
   }
 
   handleChange(event) {
-    const target = event.target
+    const {name} = event.target;
+    const {value} = event.target;
 
-    this.setState({ [target.name]: target.value });
+    this.setState({ [name]: value });
   }
 
   handleSubmit(event) {
@@ -28,10 +83,16 @@ class Form extends React.Component {
 
     fetch("http://localhost:5000/event",  {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(this.state)
+    });
+
+    this.setState({
+      title: "",
+      description: "",
+      datetime: "",
+      location: "",
+      type: "software"
     });
   }
 
@@ -68,6 +129,7 @@ class Event extends React.Component {
   render() {
     return (
       <div className="container">
+        <ShowEvent />
         <Form />
       </div>
     );
