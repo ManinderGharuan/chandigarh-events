@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DateTime from 'react-datetime';
 import './index.css';
 
 
@@ -19,7 +18,45 @@ class NavigationMenu extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
+  }
+}
+
+class ShowHideButton extends React.Component {
+  render() {
+    return (
+      <button className="mdl-button">
+        <i className="material-icons">{this.props.active ? "add" : "arrow_back"}</i>
+      </button>
+    );
+  }
+}
+
+
+class Container extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: true,
+    }
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState({active: !this.state.active})
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <div key="mdl_button" className="event-add-button show-form" onClick={this.handleClick}>
+          <ShowHideButton active={this.state.active} />
+        </div>
+
+        {this.state.active ?  <ShowEvent /> : <Form />}
+      </div>
+    );
   }
 }
 
@@ -44,33 +81,33 @@ class ShowEvent extends React.Component {
 
     return (
       <div className="event-list-container">
-      {events.map(event =>
-        <div className="row">
-          <div className="row-item row-details">
-            <div className="row-inner-item show-title">
-              <span>{event.title}</span>
+        {events.map(event =>
+          <div className="row">
+            <div className="row-item row-details">
+              <div className="row-inner-item show-title">
+                <span>{event.title}</span>
+              </div>
+
+              <div className="row-inner-item show-datetime">
+                <span>{event.date}, {event.time}</span>
+              </div>
+
+              <div className="row-inner-item show-location">
+                <span className="location-event">{event.location}</span>
+              </div>
             </div>
 
-            <div className="row-inner-item show-datetime">
-              <span>{event.date}, {event.time}</span>
-            </div>
+            <div className="row-item row-description">
+              <div className="row-inner-item row-description-head">
+                <span>Details</span>
+              </div>
 
-            <div className="row-inner-item show-location">
-              <span className="location-event">{event.location}</span>
+              <div className="row-inner-item show-description">
+                <span>{event.description}</span>
+              </div>
             </div>
           </div>
-
-          <div className="row-item row-description">
-            <div className="row-inner-item row-description-head">
-              <span>Details</span>
-            </div>
-
-            <div className="row-inner-item show-description">
-              <span>{event.description}</span>
-            </div>
-          </div>
-        </div>
-      )}
+         )}
       </div>
     );
   }
@@ -150,11 +187,7 @@ class Event extends React.Component {
     return (
       <div className="body-container">
         <NavigationMenu />
-
-        <div className="container">
-          <ShowEvent />
-          <Form />
-        </div>
+        <Container />
       </div>
     );
   }
