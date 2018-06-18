@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import DateTime from 'react-datetime';
+import "../node_modules/react-datetime/css/react-datetime.css";
 import './index.css';
 
 
@@ -31,7 +33,6 @@ class ShowHideButton extends React.Component {
     );
   }
 }
-
 
 class Container extends React.Component {
   constructor(props) {
@@ -126,6 +127,13 @@ class Form extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeDate = this.changeDate.bind(this);
+  }
+
+  changeDate(date) {
+    this.setState({
+      datetime: date,
+    });
   }
 
   handleChange(event) {
@@ -164,8 +172,8 @@ class Form extends React.Component {
           <textarea className="event-input description" name="description"
             placeholder="Description" value={this.state.description}
             onChange={this.handleChange} />
-          <input type="datetime-local" className="event-input date" name="datetime"
-            value={this.state.datetime} onChange={this.handleChange} />
+          <DateTime inputProps={{placeholder: "DateTime"}} className="date"
+            value={this.state.datetime} onChange={this.changeDate} />
           <input type="text" className="event-input location" name="location"
             placeholder="Location" value={this.state.location} onChange={this.handleChange} />
           <select className="event-input" name="type" value={this.state.type}

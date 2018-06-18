@@ -149,7 +149,7 @@ body {
   color: #b58900;
 }
 
-.event-input {
+.event-input, .form-control {
   display: inline-block;
   width: 100%;
   margin: 20px 0;
@@ -164,10 +164,6 @@ body {
   max-width: 100%;
   min-width: 100%;
   min-height: 100px;
-}
-
-.date::-webkit-calendar-picker-indicator {
-  background: #073642;
 }
 
 .submit-input {

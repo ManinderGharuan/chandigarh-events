@@ -9,8 +9,7 @@ def unduplicate(session, data):
     """
     query = session.query(Event)
     result = None
-    print(data.get('datetime'))
-    date = datetime.strptime(data.get('datetime'), "%Y-%m-%dT%H:%M")
+    date = datetime.strptime(data.get('datetime'), "%Y-%m-%dT%H:%M:%S.000Z")
     data['datetime'] = date
 
     result = query.filter(Event.datetime == data.get('datetime'),
