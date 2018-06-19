@@ -26,9 +26,11 @@ def save_events():
     return "Ok"
 
 
-@app.route('/get_events', methods=['POST'])
+@app.route('/get_events', methods=['GET'])
 @cross_origin(headers=["Content-Type", "application/json"])
 def get_events():
-    data = get_db_events(session)
+    id = request.args.get('id')
+
+    data = get_db_events(session, id)
 
     return dumps(data)

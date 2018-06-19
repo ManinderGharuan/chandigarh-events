@@ -35,16 +35,21 @@ def save_event(session, data):
         print("Failed to save data in database: ", error)
 
 
-def get_db_events(session):
+def get_db_events(session, id=None):
     """
     Return list of events in dictionary
     """
     try:
-        events = session.query(Event).order_by(asc(Event.datetime)).all()
+        if id:
+            events = session.query(Event).filter(Event.id == id).all()
+        else:
+            events = session.query(Event).order_by(asc(Event.datetime)).all()
+
         data = []
 
         if events:
             for event in events:
+                id = event.id
                 title = event.title
                 description = event.description
                 date = event.datetime.strftime("%d-%m-%Y")
@@ -53,8 +58,8 @@ def get_db_events(session):
                 type = event.type
 
                 data.append(
-                    dict(title=title, description=description, date=date,
-                         time=time, location=location, type=type)
+                    dict(id=id, title=title, description=description,
+                         date=date, time=time, location=location, type=type)
                 )
 
         return data
