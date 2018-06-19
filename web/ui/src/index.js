@@ -33,8 +33,9 @@ class Content extends Component {
   render() {
     return (
       <div className="content">
-        <Route exact path="/" component={ShowEvent} />
+        <Route exact path="/" component={ShowEvents} />
         <Route path="/show_form" component={Form} />
+        <Route path="/event_:id" component={ShowEvent} />
       </div>
     );
   }
@@ -49,11 +50,94 @@ class ShowEvent extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/get_events", {
-      method: 'POST',
+    const event_id = this.props.match.params.id;
+
+    fetch("http://localhost:5000/get_events?id=" + event_id, {
+      method: 'GET',
       headers: {'Content-Type': 'application/json'}
     }).then(response => response.json())
       .then(data => this.setState( {events: data} ))
+  }
+
+  render() {
+    const event = this.state.events[0];
+
+    if (!event) {
+      return <div>Nop</div>
+    }
+
+    return (
+      <div>
+        <NavLink className="event-add-button show-form mdl-button" to="/">
+          <i className="material-icons">arrow_back</i>
+        </NavLink>
+
+        <div key={event.id} className="row">
+          <div className="row-item row-details">
+            <div className="row-inner-item show-title">
+              <span>{event.title}</span>
+            </div>
+
+            <div className="row-inner-item show-datetime">
+              <span>{event.date}, {event.time}</span>
+            </div>
+
+            <div className="row-inner-item show-location">
+              <span className="location-event">{event.location}</span>
+            </div>
+          </div>
+
+          <div className="row-item row-description">
+            <div className="row-inner-item row-description-head">
+              <span>Details</span>
+            </div>
+
+            <div className="row-inner-item show-description">
+              <span>{event.description}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+class ShowEvents extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:5000/get_events", {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    }).then(response => response.json())
+      .then(data => this.setState( {events: data} ))
+  }
+
+  renderRow(event) {
+    return (
+      <NavLink key={event.id} to={`/event_${event.id}`} >
+        <div className="row">
+          <div className="row-item" >
+            <div className="row-inner-item show-title">
+              <span>{event.title}</span>
+            </div>
+
+            <div className="row-inner-item show-datetime">
+              <span>{event.date}, {event.time}</span>
+            </div>
+
+            <div className="row-inner-item show-location">
+              <span className="location-event">{event.location}</span>
+            </div>
+          </div>
+        </div>
+      </NavLink>
+    );
   }
 
   render() {
@@ -65,33 +149,7 @@ class ShowEvent extends Component {
           <i className="material-icons">add</i>
         </NavLink>
 
-        {events.map(event =>
-          <div className="row">
-            <div className="row-item row-details">
-              <div className="row-inner-item show-title">
-                <span>{event.title}</span>
-              </div>
-
-              <div className="row-inner-item show-datetime">
-                <span>{event.date}, {event.time}</span>
-              </div>
-
-              <div className="row-inner-item show-location">
-                <span className="location-event">{event.location}</span>
-              </div>
-            </div>
-
-            <div className="row-item row-description">
-              <div className="row-inner-item row-description-head">
-                <span>Details</span>
-              </div>
-
-              <div className="row-inner-item show-description">
-                <span>{event.description}</span>
-              </div>
-            </div>
-          </div>
-         )}
+        {events.map( event => this.renderRow(event) )}
       </div>
     );
   }

@@ -180,3 +180,7 @@ body {
   cursor: pointer;
   background: #859900;
 }
+
+a {
+  text-decoration: none;
+}
