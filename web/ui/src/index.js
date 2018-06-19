@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import DateTime from 'react-datetime';
+import {
+  Route,
+  NavLink,
+  BrowserRouter
+} from 'react-router-dom';
 import "../node_modules/react-datetime/css/react-datetime.css";
 import './index.css';
 
@@ -11,9 +16,9 @@ class NavigationMenu extends React.Component {
       <div className="navigation-bar">
         <div className="wrapper">
           <div className="brand">
-            <a href="./">
+            <NavLink to="/">
               <h1>Chandigarh <span>Events</span></h1>
-            </a>
+            </NavLink>
           </div>
 
           <div className="menu">
@@ -24,38 +29,12 @@ class NavigationMenu extends React.Component {
   }
 }
 
-class ShowHideButton extends React.Component {
+class Content extends React.Component {
   render() {
     return (
-      <button className="mdl-button">
-        <i className="material-icons">{this.props.active ? "add" : "arrow_back"}</i>
-      </button>
-    );
-  }
-}
-
-class Container extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: true,
-    }
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState({active: !this.state.active})
-  }
-
-  render() {
-    return (
-      <div className="container">
-        <div key="mdl_button" className="event-add-button show-form" onClick={this.handleClick}>
-          <ShowHideButton active={this.state.active} />
-        </div>
-
-        {this.state.active ?  <ShowEvent /> : <Form />}
+      <div className="content">
+        <Route exact path="/" component={ShowEvent} />
+        <Route path="/show_form" component={Form} />
       </div>
     );
   }
@@ -82,6 +61,10 @@ class ShowEvent extends React.Component {
 
     return (
       <div className="event-list-container">
+        <NavLink className="event-add-button show-form mdl-button" to="/show_form">
+          <i className="material-icons">add</i>
+        </NavLink>
+
         {events.map(event =>
           <div className="row">
             <div className="row-item row-details">
@@ -161,7 +144,7 @@ class Form extends React.Component {
     });
   }
 
-  render() {
+  renderEventForm() {
     return (
       <div className="create-event">
         <h1 className="event-head">Add Event</h1>
@@ -188,15 +171,29 @@ class Form extends React.Component {
       </div>
     );
   }
+
+  render() {
+    return (
+      <div className="inner-container">
+        <NavLink className="event-add-button show-form mdl-button" to="/">
+          <i className="material-icons">arrow_back</i>
+        </NavLink>
+
+        {this.renderEventForm()}
+      </div>
+    );
+  }
 }
 
 class Event extends React.Component {
   render() {
     return (
-      <div className="body-container">
-        <NavigationMenu />
-        <Container />
-      </div>
+      <BrowserRouter>
+        <div className="body-container">
+          <NavigationMenu />
+          <Content />
+        </div>
+      </BrowserRouter>
     );
   }
 }

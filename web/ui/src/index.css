@@ -42,7 +42,7 @@ body {
   font-weight: 500;
 }
 
-.container {
+.content {
   position: relative;
   width: 80%;
   max-width: 800px;
@@ -58,14 +58,12 @@ body {
 .mdl-button {
   width: 56px;
   height: 56px;
-  padding: 0;
+  padding: 15px;
   min-width: 0;
   border-radius: 50%;
   color: #fff;
   background-color: orange;
   cursor: pointer;
-  border: 0;
-  outline: none;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
