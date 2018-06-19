@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import DateTime from 'react-datetime';
 import {
@@ -10,7 +10,7 @@ import "../node_modules/react-datetime/css/react-datetime.css";
 import './index.css';
 
 
-class NavigationMenu extends React.Component {
+class NavigationMenu extends Component {
   render() {
     return (
       <div className="navigation-bar">
@@ -29,7 +29,7 @@ class NavigationMenu extends React.Component {
   }
 }
 
-class Content extends React.Component {
+class Content extends Component {
   render() {
     return (
       <div className="content">
@@ -40,7 +40,7 @@ class Content extends React.Component {
   }
 }
 
-class ShowEvent extends React.Component {
+class ShowEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -97,7 +97,7 @@ class ShowEvent extends React.Component {
   }
 }
 
-class Form extends React.Component {
+class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -185,7 +185,7 @@ class Form extends React.Component {
   }
 }
 
-class Event extends React.Component {
+class Event extends Component {
   render() {
     return (
       <BrowserRouter>
