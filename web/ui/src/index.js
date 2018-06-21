@@ -4,7 +4,7 @@ import DateTime from 'react-datetime';
 import {
   Route,
   NavLink,
-  BrowserRouter
+  BrowserRouter as Router
 } from 'react-router-dom';
 import "../node_modules/react-datetime/css/react-datetime.css";
 import './index.css';
@@ -246,12 +246,12 @@ class Form extends Component {
 class Event extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         <div className="body-container">
           <NavigationMenu />
           <Content />
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
