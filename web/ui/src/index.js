@@ -52,11 +52,17 @@ class ShowEvent extends Component {
   componentDidMount() {
     const event_id = this.props.match.params.id;
 
-    fetch("http://localhost:5000/get_events?id=" + event_id, {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'}
-    }).then(response => response.json())
-      .then(data => this.setState( {events: data} ))
+    this.getEvent(event_id)
+  }
+
+  getEvent(id) {
+    let url = "http://localhost:5000/get_events?id=" + id;
+
+    fetch(url, { method: 'GET' })
+      .then( response => response.json() )
+      .then(
+        data => this.setState( {events: data} )
+      )
   }
 
   render() {
@@ -111,11 +117,17 @@ class ShowEvents extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:5000/get_events", {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'}
-    }).then(response => response.json())
-      .then(data => this.setState( {events: data} ))
+    this.getEvents();
+  }
+
+  getEvents() {
+    let url = "http://localhost:5000/get_events";
+
+    fetch(url, { method: 'GET' })
+      .then( response => response.json() )
+      .then(
+        data => this.setState( {events: data} )
+      )
   }
 
   renderRow(event) {
