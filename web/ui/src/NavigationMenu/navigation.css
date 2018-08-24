@@ -1,0 +1,32 @@
+.navigation-bar {
+  max-height: 80px;
+  min-height: 60px;
+  background: #073642;
+}
+
+.navigator-bar, .wrapper {
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+  align-items: center;
+  height: 70px;
+}
+
+.brand {
+  margin-right: auto;
+}
+
+.brand a, .brand h1 {
+  text-decoration: none;
+  color: orange;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -.07em;
+}
+
+.brand span {
+  color: white;
+  font-size: 27px;
+  letter-spacing: normal;
+  font-weight: 500;
+}

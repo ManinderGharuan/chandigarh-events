@@ -1,0 +1,52 @@
+.create-event {
+  position: relative;
+  width: 100%;
+  margin: 80px auto;
+  padding: 50px;
+  text-align: center;
+  background: #073642;
+}
+
+.event-form {
+  margin-top: 20px;
+}
+
+.event-head {
+  margin: 5px;
+  text-align: start;
+  color: #b58900;
+}
+
+.event-input, .form-control {
+  display: inline-block;
+  width: 100%;
+  margin: 20px 0;
+  padding: 10px;
+  background: #073642;
+  border: 1px solid	#859900;
+  font-size: 15px;
+  color: #2aa198;
+}
+
+.description {
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100px;
+}
+
+.submit-input {
+  display: inline-block;
+  background: #b58900;
+  border: none;
+  width: 50%;
+  margin-top: 30px;
+  padding: 12px;
+  color: #fdf6e3;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.submit-input:hover {
+  cursor: pointer;
+  background: #859900;
+}
