@@ -26,7 +26,6 @@ class ShowEvents extends Component {
 
   renderRow(event) {
     return (
-      <NavLink key={event.id} to={`/event_${event.id}`} >
         <div className="row">
           <div className="row-item" >
             <div className="row-inner-item show-title">
@@ -34,7 +33,7 @@ class ShowEvents extends Component {
             </div>
 
             <div className="row-inner-item show-datetime">
-              <span>{event.date}, {event.time}</span>
+              <span>{event.date}  {event.time}</span>
             </div>
 
             <div className="row-inner-item show-location">
@@ -42,7 +41,6 @@ class ShowEvents extends Component {
             </div>
           </div>
         </div>
-      </NavLink>
     );
   }
 
@@ -55,7 +53,12 @@ class ShowEvents extends Component {
           <i className="material-icons">add</i>
         </NavLink>
 
-        {events.map( event => this.renderRow(event) )}
+        {
+          events.length !== 0 ? events.map( event =>
+            <NavLink key={event.id} to={`/event_${event.id}`} >
+              { this.renderRow(event) }
+            </NavLink> ) : this.renderRow({title: "No Event Available"})
+        }
       </div>
     );
   }
